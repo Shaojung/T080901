@@ -16,13 +16,14 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     LocationManager lm;
-    TextView textView1;
+    TextView textView1, textView2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         textView1 = (TextView) findViewById(R.id.textView);
+        textView2 = (TextView) findViewById(R.id.textView2);
         MyLocationListener myLocationListener = new MyLocationListener();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -55,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
                     " 速度-Speed：" + location.getSpeed() + "\n" +
                     " 方位-Bearing：" + location.getBearing());
             setTitle("GPS 位置資訊已更新");
+
+            Location loc = new Location("MyLoc");
+
+            loc.setLatitude(25.0337);
+            loc.setLongitude(121.5645);
+            float distance = location.distanceTo(loc);
+            textView2.setText("To 101: " + distance);
         }
 
         @Override
